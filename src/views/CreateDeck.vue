@@ -25,7 +25,6 @@ export default {
   methods: {
     submit(e: Event) {
       const values = getValuesFromForm(e.target as HTMLFormElement);
-      console.log(!areAllCardsValid(values));
       if (hasDuplicates(values) || !areAllCardsValid(values)) {
         alert("no");
       }
