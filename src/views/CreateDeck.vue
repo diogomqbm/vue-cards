@@ -1,26 +1,36 @@
 <template>
-  <form class="createDeck">
+  <form class="createDeck" @submit.prevent="submit">
     <div class="createDeck__inputs">
-      <CardInput :label="`CARD ${index}`" v-for="index in 10" :key="index"/>
+      <CardInput 
+        :label="`CARD ${index}`" 
+        v-for="index in 10" 
+        :key="index"
+        placeholder="Enter card"
+      />
     </div>
+    <button type="submit">Submit</button>
   </form>
 </template>
 
-<script>
+<script lang="ts">
 import CardInput from '@/components/CardInput.vue';
+import { getValuesFromForm, areAllCardsValid, hasDuplicates } from '../utils/form';
 
 export default {
   name: 'CreateDeck',
-  data() {
-    return {
-      inputs: [{
-        value: "",
-        valid: false
-      }]
-    }
-  },
   components: {
     CardInput
+  },
+
+  methods: {
+    submit(e: Event) {
+      const values = getValuesFromForm(e.target as HTMLFormElement);
+      console.log(!areAllCardsValid(values));
+      if (hasDuplicates(values) || !areAllCardsValid(values)) {
+        alert("no");
+      }
+      return "null"
+    }
   }
 }
 </script>

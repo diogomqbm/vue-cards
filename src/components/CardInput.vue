@@ -1,7 +1,7 @@
 <template>
   <div class="cardInput">
     <label>{{ label }}</label>
-    <input>
+    <input :placeholder="placeholder">
   </div>
 </template>
 
@@ -11,6 +11,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class CardInput extends Vue {
   @Prop() private label!: string;
+  @Prop() private placeholder!: string;
 }
 </script>
 
@@ -29,7 +30,6 @@ export default class CardInput extends Vue {
 
   .cardInput input {
     margin-top: .5rem;
-    text-transform: uppercase;
     font-size: 1rem;
     padding: 8px;
     border-radius: 8px;
