@@ -1,5 +1,6 @@
 import { Module } from 'vuex';
 import * as actions from './actions';
+import * as getters from './getters';
 import { State } from './types';
 import mutations from './mutations';
 
@@ -12,6 +13,7 @@ const viewDeckModule: Module<State, {}> = {
   },
   actions: actions,
   mutations: mutations,
+  getters: getters,
   namespaced: true
 };
 
