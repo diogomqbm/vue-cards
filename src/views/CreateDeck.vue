@@ -17,7 +17,13 @@
         isRotation="true"
       />
     </div>
-    <button :disabled="!nonEmptyValues(deck).length" class="createDeck__submit" type="submit">Submit</button>
+    <button 
+      :disabled="isLoading || !nonEmptyValues(deck).length" 
+      class="createDeck__submit" 
+      type="submit"
+    >
+      {{ isLoading ? 'Loading' : 'Submit' }}
+    </button>
   </form>
 </template>
 
@@ -28,16 +34,21 @@ import { areAllCardsValid, hasDuplicates } from '../utils/form';
 import { isValidCard } from '../utils/cards';
 import { createNamespacedHelpers } from 'vuex';
 
-const { mapActions } = createNamespacedHelpers('createDeck');
+const { mapActions, mapState } = createNamespacedHelpers('createDeck');
 
 @Component({
   name: 'CreateDeck',
   components: {
     CardInput
   },
+  computed: {
+    ...mapState([
+      'isLoading'
+    ])
+  },
   methods: {
     ...mapActions([
-      'fetchDeck'
+      'generateDeck'
     ])
   }
 })
@@ -45,7 +56,8 @@ const { mapActions } = createNamespacedHelpers('createDeck');
 export default class CreateDeck extends Vue {
   private deck: { value: string }[] = [{value: ''}, {value: ''}, {value: ''}, {value: ''}, {value: ''}, {value: ''}, {value: ''}, {value: ''}, {value: ''}, {value: ''}];
   private rotationCard = '';
-  fetchDeck: any; //typescript workaround mapped Action
+  generateDeck: any; //typescript workaround mapped Action
+  isLoading!: boolean;
 
   public submit() {
     const values = this.nonEmptyValues();
@@ -53,7 +65,7 @@ export default class CreateDeck extends Vue {
     if (isSomethingWrong) {
       return alert('Your cards are not valid');
     }
-    return this.fetchDeck({
+    return this.generateDeck({
       deck: values,
       rotationCard: this.rotationCard
     })

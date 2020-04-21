@@ -17,7 +17,7 @@ const createPile = (pileName: string) => (deckId: string, cards: string[]) => {
 const createCardsPile = createPile('cards');
 const createRotationPile = createPile('rotation');
 
-export const fetchDeck: Action<types.State, {}> = ({ dispatch }, payload: types.Payload) => {
+export const generateDeck: Action<types.State, {}> = ({ dispatch }, payload: types.Payload) => {
   const { deck, rotationCard } = payload;
   const allCards = deck.concat([rotationCard]);
   dispatch('createDeck');
