@@ -53,7 +53,10 @@ export default class CreateDeck extends Vue {
     if (isSomethingWrong) {
       return alert('Your cards are not valid');
     }
-    return this.fetchDeck(values.concat(this.rotationCard))
+    return this.fetchDeck({
+      deck: values,
+      rotationCard: this.rotationCard
+    })
   }
   
   public nonEmptyValues() {
