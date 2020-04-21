@@ -49,8 +49,8 @@ export default class CardInput extends Vue {
     font-size: 1rem;
     padding: 8px;
     border-radius: 8px;
-    box-shadow: none;
-    border: none;
+    box-shadow: 0 0 1px var(--light-grey);
+    border: 1px solid var(--light-grey);
   }
 
 </style>

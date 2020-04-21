@@ -17,7 +17,7 @@
         isRotation="true"
       />
     </div>
-    <button :disabled="canSubmit" class="createDeck__submit" type="submit">Submit</button>
+    <button :disabled="!nonEmptyValues(deck).length" class="createDeck__submit" type="submit">Submit</button>
   </form>
 </template>
 
@@ -25,21 +25,38 @@
 import CardInput from '@/components/CardInput.vue';
 import { Component, Vue } from 'vue-property-decorator';
 import { areAllCardsValid, hasDuplicates } from '../utils/form';
+import { isValidCard } from '../utils/cards';
+
 @Component({
   components: {
     CardInput
   }
 })
+
 export default class CreateDeck extends Vue {
   private deck: { value: string }[] = [{value: ''}, {value: ''}, {value: ''}, {value: ''}, {value: ''}, {value: ''}, {value: ''}, {value: ''}, {value: ''}, {value: ''}];
   private rotationCard = '';
+
   public submit() {
-    console.log(this.deck.map(i => i.value));
-    console.log(this.rotationCard)
+    const values = this.nonEmptyValues();
+    const isSomethingWrong = !areAllCardsValid(values) || hasDuplicates(values) || !isValidCard(this.rotationCard);
+    if (isSomethingWrong) {
+      return alert('Your cards are not valid');
+    }
+    return {
+      deck: values,
+      rotationCard: this.rotationCard
+    }
   }
+  
+  public nonEmptyValues() {
+    return this.deck
+      .map(i => i.value)
+      .filter(v => v.length);
+  }
+
   get canSubmit(): boolean {
-    const values = this.deck.map(i => i.value);
-    return !(areAllCardsValid(values) && !hasDuplicates(values));
+    return Boolean(this.nonEmptyValues.length);
   }
 }
 </script>
