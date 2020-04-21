@@ -1,7 +1,7 @@
 <template>
-  <div class="cardInput">
+  <div class="cardInput" :class="{ rotation: isRotation }">
     <label>{{ label }}</label>
-    <input :placeholder="placeholder">
+    <input @input="updateValue" :placeholder="placeholder">
   </div>
 </template>
 
@@ -12,6 +12,11 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 export default class CardInput extends Vue {
   @Prop() private label!: string;
   @Prop() private placeholder!: string;
+  @Prop() private isRotation?: boolean;
+
+  updateValue(e: Event): void {
+    this.$emit('input', (e.target as HTMLInputElement).value);
+  }
 }
 </script>
 
@@ -22,6 +27,17 @@ export default class CardInput extends Vue {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+  }
+
+  .cardInput.rotation {
+    display: block;
+  }
+
+  .cardInput.rotation label {
+    color: black;
+    font-size: 2rem;
+    margin-right: 1rem;
+    font-weight: 600;
   }
 
   .cardInput label {

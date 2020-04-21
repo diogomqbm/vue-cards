@@ -8,7 +8,7 @@ export function getValuesFromForm(form: HTMLFormElement) {
 }
 
 export function areAllCardsValid(values: string[]) {
-  const validValues = values.filter(v => isValidCard(v));
+  const validValues = values.filter(v => v.length && isValidCard(v));
   return validValues.length === values.length;
 }
 
