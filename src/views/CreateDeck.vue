@@ -26,16 +26,26 @@ import CardInput from '@/components/CardInput.vue';
 import { Component, Vue } from 'vue-property-decorator';
 import { areAllCardsValid, hasDuplicates } from '../utils/form';
 import { isValidCard } from '../utils/cards';
+import { createNamespacedHelpers } from 'vuex';
+
+const { mapActions } = createNamespacedHelpers('createDeck');
 
 @Component({
+  name: 'CreateDeck',
   components: {
     CardInput
+  },
+  methods: {
+    ...mapActions([
+      'fetchDeck'
+    ])
   }
 })
 
 export default class CreateDeck extends Vue {
   private deck: { value: string }[] = [{value: ''}, {value: ''}, {value: ''}, {value: ''}, {value: ''}, {value: ''}, {value: ''}, {value: ''}, {value: ''}, {value: ''}];
   private rotationCard = '';
+  fetchDeck: any; //typescript workaround mapped Action
 
   public submit() {
     const values = this.nonEmptyValues();
@@ -43,10 +53,7 @@ export default class CreateDeck extends Vue {
     if (isSomethingWrong) {
       return alert('Your cards are not valid');
     }
-    return {
-      deck: values,
-      rotationCard: this.rotationCard
-    }
+    return this.fetchDeck(values.concat(this.rotationCard))
   }
   
   public nonEmptyValues() {
