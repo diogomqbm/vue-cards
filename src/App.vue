@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import getPageTitle from './utils/title';
+  import { getPageTitle } from './utils/window';
 
   export default {
     data () {
