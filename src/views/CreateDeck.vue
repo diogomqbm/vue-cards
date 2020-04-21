@@ -54,10 +54,6 @@ export default class CreateDeck extends Vue {
       .map(i => i.value)
       .filter(v => v.length);
   }
-
-  get canSubmit(): boolean {
-    return Boolean(this.nonEmptyValues.length);
-  }
 }
 </script>
 
