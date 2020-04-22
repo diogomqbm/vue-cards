@@ -72,8 +72,10 @@ export default class ViewDeck extends Vue {
   }
 
   .viewDeck__cards {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 2rem;
     background-color: var(--light-background);
     padding: 20px;
     margin-bottom: 20px;

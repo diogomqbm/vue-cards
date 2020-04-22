@@ -6,18 +6,19 @@ export const fetchPiles: Action<types.State, {}> = ({ commit }) => commit(types.
 export const fetchPilesSuccess: Action<types.State, {}> = ({ commit }, data) => commit(types.FETCH_PILES_SUCCESS, data);
 export const fetchPilesError: Action<types.State, {}> = ({ commit }, error) => commit(types.FETCH_PILES_SUCCESS, error);
 
-const getCardsFromPile = (deckId: string, pileName: string): Promise<string[]> => {
+const getCardsFromPile = (deckId: string): Promise<string[]> => {
   return client
-    .get(`${deckId}/pile/${pileName}/list`)
-    .then(({ data }) => data.piles[pileName].cards.map((c: types.ServerCard) => c.code));
+    .get(`${deckId}/pile/cards/list`)
+    .then(({ data }) => data.piles.cards.cards.map((c: types.ServerCard) => c.code));
 };
 
 export const requestPiles: Action<types.State, {}> = async ({ dispatch }, deckId: string) => {
   dispatch('fetchPiles');
 
   try {
-    const cards = await getCardsFromPile(deckId, 'cards');
-    const rotationCard = await getCardsFromPile(deckId, 'rotation');
+    const allCards = await getCardsFromPile(deckId);
+    const cards = allCards.slice(0, allCards.length - 1);
+    const rotationCard = allCards;
     dispatch('fetchPilesSuccess', { cards, rotationCard: rotationCard[0] })
   } catch(e) {
     dispatch('fetchPilesError', e);
