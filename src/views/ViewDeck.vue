@@ -1,5 +1,9 @@
 <template>
   <h1 v-if="isLoading">Loading...</h1>
+  <h1 v-else-if="shouldDisplayError">
+    Failed trying to fetch piles from deck!<br/>
+    Please, try again.
+  </h1>
   <div v-else class="viewDeck">
     <div class="viewDeck__cards">
       <Card 
@@ -40,7 +44,8 @@ const { mapState, mapActions, mapGetters } = createNamespacedHelpers('viewDeck')
   computed: {
     ...mapState([
       'rotationPile',
-      'isLoading'
+      'isLoading',
+      'error'
     ]),
     ...mapGetters([
       'sortedCards',
@@ -58,9 +63,14 @@ export default class ViewDeck extends Vue {
   sortedCards!: string[];
   fullHouseCombos!: string[][];
   isLoading!: boolean;
+  error!: null | string;
 
   mounted() {
     this.requestPiles(getIdFromPath());
+  }
+
+  get shouldDisplayError(): boolean {
+    return !!this.error;
   }
 }
 </script>

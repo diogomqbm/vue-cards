@@ -15,7 +15,12 @@
         isRotation="true"
       />
     </div>
+    <h1 v-if="shouldDisplayError">
+      Something went wrong.<br/> 
+      Please reload and try again.
+    </h1>
     <button 
+      v-else
       :disabled="isLoading" 
       class="createDeck__submit" 
       type="submit"
@@ -41,7 +46,8 @@ const { mapActions, mapState } = createNamespacedHelpers('createDeck');
   },
   computed: {
     ...mapState([
-      'isLoading'
+      'isLoading',
+      'error'
     ])
   },
   methods: {
@@ -54,6 +60,7 @@ const { mapActions, mapState } = createNamespacedHelpers('createDeck');
 export default class CreateDeck extends Vue {
   generateDeck: any; //typescript workaround mapped Action
   isLoading!: boolean;
+  error!: null | string;
 
   public submit(e: Event) {
     const { deck, rotationCard } = getFormValues(e.target as HTMLFormElement);
@@ -62,6 +69,10 @@ export default class CreateDeck extends Vue {
       return alert('Your cards are not valid');
     }
     return this.generateDeck({ deck, rotationCard })
+  }
+
+  get shouldDisplayError(): boolean {
+    return !!this.error;
   }
 }
 </script>
