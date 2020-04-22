@@ -1,5 +1,6 @@
 <template>
-  <div class="viewDeck">
+  <h1 v-if="isLoading">Loading...</h1>
+  <div v-else class="viewDeck">
     <div class="viewDeck__cards">
       <Card 
         :code="card" 
@@ -38,7 +39,8 @@ const { mapState, mapActions, mapGetters } = createNamespacedHelpers('viewDeck')
   },
   computed: {
     ...mapState([
-      'rotationPile'
+      'rotationPile',
+      'isLoading'
     ]),
     ...mapGetters([
       'sortedCards',
@@ -55,6 +57,7 @@ export default class ViewDeck extends Vue {
   requestPiles: any;
   sortedCards!: string[];
   fullHouseCombos!: string[][];
+  isLoading!: boolean;
 
   mounted() {
     this.requestPiles(getIdFromPath());
