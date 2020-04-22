@@ -10,11 +10,12 @@ type Reference = {
   values: string[];
 }
 
-function getReference(rotationCard: string, reference: string[]): string[] {
-  if (rotationCard === reference[0]) {
+export function mountNewReference(cardProp: string, type: 'suits' | 'values'): string[] {
+  const reference = type === 'suits' ? DEFAULT_SUITS : DEFAULT_VALUES;
+  if (cardProp === reference[0]) {
     return reference;
   }
-  const index = reference.indexOf(rotationCard);
+  const index = reference.indexOf(cardProp);
   const minorRef = reference.slice(0, index);
   const majorRef = reference.slice(index, reference.length);
   return majorRef.concat(minorRef);
@@ -32,8 +33,8 @@ export function getCardSuit(card: string) {
 }
 
 export function getNewReference(rotationCard: string): Reference {
-  const newValues = getReference(getCardValue(rotationCard), DEFAULT_VALUES);
-  const newSuits = getReference(getCardSuit(rotationCard), DEFAULT_SUITS);
+  const newValues = mountNewReference(getCardValue(rotationCard), 'values');
+  const newSuits = mountNewReference(getCardSuit(rotationCard), 'suits');
   return {
     suits: newSuits,
     values: newValues
