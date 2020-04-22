@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import CreateDeck from '../views/CreateDeck.vue'
+import ViewDeck from '../views/ViewDeck.vue'
 
 Vue.use(VueRouter)
 
@@ -10,6 +11,11 @@ Vue.use(VueRouter)
     name: 'CreateDeck',
     component: CreateDeck
   },
+  {
+    path: '/deck/:id',
+    name: 'ViewDeck',
+    component: ViewDeck
+  }
 ]
 
 const router = new VueRouter({
