@@ -1,4 +1,4 @@
-# intricately
+# Vue Challenge
 
 ## Project setup
 ```

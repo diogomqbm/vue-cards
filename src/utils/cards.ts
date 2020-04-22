@@ -7,7 +7,7 @@ export function isValidCard(card: string) {
   return pattern.test(card);
 }
 
-function getPairs(cards: string[]) {
+export function getPairs(cards: string[]) {
   if (cards.length < 2) {
     return [];
   }
@@ -23,7 +23,7 @@ function getPairs(cards: string[]) {
   return pairs;
 }
 
-function getTriplets(cards: string[]) {
+export function getTriplets(cards: string[]) {
   if (cards.length < 3) {
     return [];
   }
@@ -41,7 +41,7 @@ function getTriplets(cards: string[]) {
   return triplets;
 }
 
-function matchPairsTriplets(pairs: string[][], triplets: string[][]) {
+export function matchPairsTriplets(pairs: string[][], triplets: string[][]) {
   const matches = [];
   for (let i = 0; i < triplets.length; i++) {
     for (let j = 0; j < pairs.length; j++) {
