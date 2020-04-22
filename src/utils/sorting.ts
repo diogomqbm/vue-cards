@@ -20,14 +20,14 @@ function getReference(rotationCard: string, reference: string[]): string[] {
   return majorRef.concat(minorRef);
 }
 
-function getCardValue(card: string): string {
+export function getCardValue(card: string): string {
   if (card.length > 2) {
     return card.slice(0,2);
   }
   return card[0];
 }
 
-function getCardSuit(card: string) {
+export function getCardSuit(card: string) {
   return card[card.length - 1];
 }
 
