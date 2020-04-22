@@ -1,7 +1,7 @@
 <template>
   <div class="cardInput" :class="{ rotation: isRotation }">
     <label>{{ label }}</label>
-    <input @input="updateValue" :placeholder="placeholder">
+    <input :placeholder="placeholder">
   </div>
 </template>
 
@@ -13,10 +13,6 @@ export default class CardInput extends Vue {
   @Prop() private label!: string;
   @Prop() private placeholder!: string;
   @Prop() private isRotation?: boolean;
-
-  updateValue(e: Event): void {
-    this.$emit('input', (e.target as HTMLInputElement).value);
-  }
 }
 </script>
 
