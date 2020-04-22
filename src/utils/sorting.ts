@@ -41,7 +41,7 @@ export function getNewReference(rotationCard: string): Reference {
   }
 }
 
-function getGreaterSuit(a: string, b: string, reference: Reference) {
+export function getGreaterSuit(a: string, b: string, reference: Reference) {
   if (reference.suits.indexOf(getCardSuit(a)) < reference.suits.indexOf(getCardSuit(b))) {
     return a;
   } 
@@ -51,14 +51,14 @@ function getGreaterSuit(a: string, b: string, reference: Reference) {
   return b;
 }
 
-function getGreaterValue(a: string,b: string, reference: Reference) {
+export function getGreaterValue(a: string,b: string, reference: Reference) {
   if (reference.values.indexOf(getCardValue(a)) < reference.values.indexOf(getCardValue(b))) {
     return a;
   }
   return b;
 }
 
-function getGreaterCard(a: string,b: string, reference: Reference) {
+export function getGreaterCard(a: string,b: string, reference: Reference) {
   if (getGreaterSuit(a,b, reference) === a) {
     return a;
   }

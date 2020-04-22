@@ -24,6 +24,21 @@ describe('Sorting utils', () => {
     expect(sorting.getCardSuit('KH')).toEqual('H');
   });
 
+  it('Should get greater suit', () => {
+    expect(sorting.getGreaterSuit('6S', '10S', sorting.getNewReference('6C'))).toEqual('equal');
+    expect(sorting.getGreaterSuit('6S', '10C', sorting.getNewReference('6C'))).toEqual('10C');
+  });
+
+  it('Should get greater value', () => {
+    expect(sorting.getGreaterValue('6S', '10S', sorting.getNewReference('6C'))).toEqual('6S');
+    expect(sorting.getGreaterValue('6S', '10C', sorting.getNewReference('6C'))).toEqual('6S');
+  });
+
+  it('Should get greater card', () => {
+    expect(sorting.getGreaterCard('6S', '10S', sorting.getNewReference('6C'))).toEqual('6S');
+    expect(sorting.getGreaterCard('6S', '10C', sorting.getNewReference('6C'))).toEqual('10C');
+  })
+
   it('Should sort pile', () => {
     expect(sortPile(['2H', '2D', '2C', '2S', '3H', '3D', '3C'])).toEqual(['2H', '3H', '2D', '3D', '2C', '3C', '2S'])
     expect(sortPile(['2H', '2D', '2C', '2S', '3H', '3D', '3C'], sorting.getNewReference('3C'))).toEqual(['3C', '2C', '2S', '3H', '2H', '3D', '2D'])
