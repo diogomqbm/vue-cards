@@ -1,11 +1,21 @@
 <template>
   <div class="viewDeck">
-    <div class="deck__container">
+    <div class="viewDeck__cards">
       <Card 
         :code="card" 
         v-for="card in sortedCards" 
         :key="card"
       />
+    </div>
+    <div class="viewDeck__infos">
+      <div>
+        <label class="infos__label">High Card: </label>
+        <label>{{ sortedCards[0] }}</label>
+      </div>
+      <div>
+        <label class="infos__label">Full House Combo: </label>
+        <label v-if="!fullHouseCombos.length">None</label>
+      </div>
     </div>
   </div>
 </template>
@@ -28,7 +38,8 @@ const { mapState, mapActions, mapGetters } = createNamespacedHelpers('viewDeck')
       'rotationPile'
     ]),
     ...mapGetters([
-      'sortedCards'
+      'sortedCards',
+      'fullHouseCombos'
     ])
   },
   methods: {
@@ -40,6 +51,7 @@ const { mapState, mapActions, mapGetters } = createNamespacedHelpers('viewDeck')
 export default class ViewDeck extends Vue {
   requestPiles: any;
   sortedCards!: string[];
+  fullHouseCombos!: string[][];
 
   mounted() {
     this.requestPiles(getIdFromPath());
@@ -49,9 +61,22 @@ export default class ViewDeck extends Vue {
 
 <style scoped>
 
-  .deck__container {
+  .viewDeck {
+    padding: 20px;
+  }
+
+  .viewDeck__cards {
     display: flex;
     padding: 20px;
+  }
+
+  .viewDeck__infos {
+    text-align: left;
+    font-size: 1.5rem;
+  }
+
+  .infos__label {
+    font-weight: 600;
   }
 
 </style>
