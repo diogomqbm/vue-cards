@@ -60,9 +60,7 @@ export default function getFullHouse(cards: string[]) {
   const grouped = groupBy(cards, (card: string) => getCardValue(card));
   const couldHavePairs = filter(grouped, (value) => value.length >= 2);
   const couldHaveTriplets = filter(grouped, (value) => value.length >= 3);
-  const allPairs = couldHavePairs.map(i => getPairs(i));
-  const allTriplets = couldHaveTriplets.map(i => getTriplets(i));
-  const flatPairs = allPairs.flat();
-  const flatTriplets = allTriplets.flat();
-  return matchPairsTriplets(flatPairs, flatTriplets);
+  const allPairs = couldHavePairs.map(i => getPairs(i)).flat();
+  const allTriplets = couldHaveTriplets.map(i => getTriplets(i)).flat();
+  return matchPairsTriplets(allPairs, allTriplets);
 }
