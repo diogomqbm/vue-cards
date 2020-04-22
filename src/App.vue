@@ -26,6 +26,7 @@
     font-size: 16px;
     
     --background-default: #dff4f7;
+    --light-background: #D8D8D8;
     --background-title: #1c7000;
     --title-color: #fbe500;
     --title-size: 4rem;

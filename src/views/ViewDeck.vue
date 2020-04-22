@@ -15,6 +15,9 @@
       <div>
         <label class="infos__label">Full House Combo: </label>
         <label v-if="!fullHouseCombos.length">None</label>
+        <ul class="infos__list">
+          <li v-for="(combo, index) in fullHouseCombos" :key="index">{{ combo.join() }}</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -67,7 +70,11 @@ export default class ViewDeck extends Vue {
 
   .viewDeck__cards {
     display: flex;
+    justify-content: space-between;
+    background-color: var(--light-background);
     padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--light-grey);
   }
 
   .viewDeck__infos {
@@ -77,6 +84,10 @@ export default class ViewDeck extends Vue {
 
   .infos__label {
     font-weight: 600;
+  }
+
+  .infos__list {
+    margin: 0;
   }
 
 </style>
