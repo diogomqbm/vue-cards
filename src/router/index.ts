@@ -7,6 +7,10 @@ Vue.use(VueRouter)
 
   const routes: Array<RouteConfig> = [
   {
+    path: '/',
+    redirect: '/deck/new'
+  },
+  {
     path: '/deck/new',
     name: 'CreateDeck',
     component: CreateDeck
